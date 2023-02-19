@@ -1,0 +1,282 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* navbar */
+nav {
+  box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btnlogin {
+  border: 2px solid #ff6185;
+  width: 100px;
+  height: 30px;
+  color: #ff6185;
+  background-color: white;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.btnregist {
+  border: 0px;
+  width: 100px;
+  height: 30px;
+  color: white !important;
+  background-color: #ff6185 !important;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+/* modal */
+.bg-Modal {
+  background-color: white;
+  display: flex;
+  width: auto;
+  height: auto;
+  border-radius: 50px;
+}
+
+.form input {
+  background: #d2d2d240;
+  border: 2px solid #bcbcbc;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  color: black;
+}
+.form-control {
+  background: #c4c4c480 !important;
+  border: 2px solid #bcbcbc;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  color: black;
+}
+
+.form select {
+  background: #d2d2d240;
+  border: 2px solid #bcbcbc;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  color: black;
+}
+.form-select {
+  background: #c4c4c480 !important;
+  border: 2px solid #bcbcbc;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  color: black;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 29px;
+  color: #000000;
+}
+
+.btnauth {
+  border: 0px;
+  background: #ff6185 !important;
+  border-radius: 5px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  line-height: 35px !important;
+  color: white !important;
+}
+
+.warning {
+  color: #b1b1b1;
+  text-align: center;
+}
+
+.btnHere {
+  border: 0px;
+  background-color: white;
+  color: #b1b1b1;
+  font-weight: bold;
+}
+
+/* Card artikel */
+.img-size {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.img-size-detail {
+  padding: 2rem;
+}
+
+.title-article {
+  overflow: hidden;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.desc {
+  overflow: hidden;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+/* profile */
+.profile-container {
+  height: 100vh;
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-card {
+  background-color: white;
+  margin-top: 10vh;
+  padding: 20px;
+  border: 1px solid rgb(182, 178, 178);
+  border-radius: 10px;
+  width: 60%;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+  }
+}
+
+.profile-data {
+  display: flex;
+  padding-left: 30px;
+  margin-bottom: 15px;
+}
+
+.profile-details {
+  padding-left: 10px;
+}
+
+.profile-details span {
+  display: block;
+}
+
+.profile-icon {
+  font-size: 35px;
+  width: 45px;
+}
+
+.profile-desc {
+  display: block;
+  min-width: 50%;
+  max-width: 100%;
+  min-height: 50vh;
+  /* background-color: red; */
+}
+
+.profile-img {
+  display: block;
+  min-width: 50%;
+  max-width: 100%;
+  min-height: 50vh;
+  /* background-color: blue; */
+}
+
+.profile-avatar {
+  padding-top: 20px;
+  position: relative;
+  float: right;
+  /* width: 100%; */
+}
+
+.profile-button {
+  position: relative;
+  margin-left: 110px;
+  width: 70%;
+  height: 60px;
+  margin-top: 10px;
+  font-size: 1.3rem;
+  background: #ff6185;
+  border: 1px solid #ff6185;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.profile-button:hover {
+  background: #fa2c5c;
+  border: 1px solid #fa2c5c;
+}
+
+/* inbox */
+.inbox-ctnr {
+  display: flex;
+  width: 100%;
+}
+.inbox-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+}
+
+.inbox-right {
+  width: 75%;
+}
+
+.cons-box {
+  overflow: hidden;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.footctn {
+  align-items: center;
+  /* justify-content: center; */
+  display: flex;
+  width: 80%;
+}
+
+.inboxfoot-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+.inboxfoot-right {
+  width: 80%;
+}
+
+/* modal reservation doctor */
+.rsv-modal {
+  display: flex;
+  /* background-color: red; */
+  height: 11rem;
+  width: 100%;
+}
+
+.rsv-left {
+  /* background-color: blue; */
+  width: 70%;
+}
+
+.rsv-right {
+  /* background-color: green; */
+  width: 30%;
+}
