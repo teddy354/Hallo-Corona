@@ -90,7 +90,7 @@ export default function Inbox() {
                       >
                         Here
                       </a>
-                      <p className="mt-2">Hallo corona</p>
+                      <p className="mt-2">Dr. Teddy</p>
                     </div>
                   </div>
                 </Card.Footer>
