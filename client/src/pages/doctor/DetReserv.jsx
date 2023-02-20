@@ -179,20 +179,6 @@ export default function DetReserv() {
                     onChange={handleChange}
                   />
                 </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label className="label m-2">
-                    Link Live Consultation
-                  </Form.Label>
-                  <Form.Control
-                    name="linkLive"
-                    type="text"
-                    value={form?.linkLive}
-                    id="linkLive"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                
                 <div className="btn-rsv d-flex justify-content-end mt-2">
                   <Button
                     onClick={() => navigate("/doctor")}
