@@ -1,16 +1,19 @@
 import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
-import Patient from "../../assets/dropdown/patient.png";
-import Doctor from "../../assets/dropdown/doctor.png";
+import patient from "../../assets/dropdown/patient.png";
+import doctor from "../../assets/dropdown/doctor.png";
 import noData from "../../assets/No-data.png";
 import { useQuery } from "react-query";
 import { API } from "../../config/api";
 import moment from "moment";
 import { UserContext } from "../../context/userContext";
 
+
 export default function Inbox() {
 
   const [state, dispatch] = useContext(UserContext)
+
+  const id = state.user.id
 
   let { data: consultations } = useQuery("cacheConsultations", async () => {
     const response = await API.get("/consultations");
@@ -37,7 +40,7 @@ export default function Inbox() {
                   <div className="inbox-left">
                     <img
                       className="rounded-circle"
-                      src={Patient}
+                      src={patient}
                       alt="Patient"
                       style={{ width: "55px", border: "3px solid #ff6185" }}
                     />
@@ -72,7 +75,7 @@ export default function Inbox() {
                     <div className="inboxfoot-left">
                       <img
                         className="rounded-circle"
-                        src={Doctor}
+                        src={doctor}
                         alt="Doctor"
                         style={{ width: "55px", border: "3px solid #ff6185" }}
                       />

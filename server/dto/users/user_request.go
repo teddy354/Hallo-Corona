@@ -25,3 +25,4 @@ type UpdateUserRequest struct {
 type ChangeImageRequest struct {
 	Image string `json:"image" form:"image" gorm:"type : varchar(255)"`
 }
+

@@ -79,7 +79,6 @@ func (h *handlerArticle) CreateArticle(w http.ResponseWriter, r *http.Request) {
 
 	request := articledto.CreateArticleRequest{
 		Title:    r.FormValue("title"),
-		// Ctg:      r.FormValue("ctg"),
 		Image:    r.FormValue("image"),
 		UserID:   userId,
 		Desc:     r.FormValue("desc"),

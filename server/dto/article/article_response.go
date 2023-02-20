@@ -8,7 +8,6 @@ import (
 type ArticleResponse struct {
 	ID        int                 `json:"id" gorm:"primary_key:auto_increment"`
 	Title     string              `json:"title" gorm:"type:varchar(255)"`
-	// Ctg       string              `json:"ctg" form:"ctg" gorm:"type:varchar(255)"`
 	Image     string              `json:"image" gorm:"type: varchar(255)"`
 	User      models.UserResponse `json:"user" gorm:"foreignKey:UserID"`
 	Desc      string              `json:"desc" gorm:"type:text" form:"desc"`
