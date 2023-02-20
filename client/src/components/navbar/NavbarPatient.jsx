@@ -54,7 +54,7 @@ export default function NavbarPatient() {
                 title={
                   <img
                     className="rounded-circle"
-                    src={userId?.image != "" ? "http://localhost:5000/uploads/"+userId?.image : patient}
+                    src={userId?.image ? userId?.image : patient}
                     alt="Patient"
                     style={{ width: "50px", marginTop: "15px", height: "50px"}}
                   />

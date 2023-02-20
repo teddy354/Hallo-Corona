@@ -121,9 +121,9 @@ export default function Profile() {
         </div> */}
           <div className="profile-img d-flex flex-column align-items-center">
             {state.user.listAs === "patient" ? (
-              <img className="profile-avatar" style={{ width: "310px", height: "430px", objectFit: "cover" }} src={userId?.image !== "" ? "http://localhost:5000/uploads/"+userId?.image : patient} alt="" />
+              <img className="profile-avatar" style={{ width: "310px", height: "430px", objectFit: "cover" }} src={userId?.image ? userId?.image : patient} alt="" />
             ) : (
-              <img className="profile-avatar" style={{ width: "310px", height: "430px", objectFit: "cover" }} src={userId?.image !== "" ? "http://localhost:5000/uploads/"+userId?.image : doctor} alt="" />
+              <img className="profile-avatar" style={{ width: "310px", height: "430px", objectFit: "cover" }} src={userId?.image ? userId?.image : doctor} alt="" />
             )}
               <button className="profile-button ms-0" onClick={() => setModalShowImage(true)} style={{width:"20rem"}}>Change Photo Profile</button>
           </div>

@@ -76,7 +76,7 @@ export default function Signin({ signInShow, setSignInShow, signInHere }) {
         setMessage(alertPassword);
       }
 
-      if (error.response.data.code == 403) {
+      if (error.response.data.code === 403) {
         const alertPassword = (
           <Alert variant="danger" className="py-1">
             Username not found!
@@ -84,7 +84,7 @@ export default function Signin({ signInShow, setSignInShow, signInHere }) {
         );
         setMessage(alertPassword);
       }
-      if (error.response.data.code == 404) {
+      if (error.response.data.code === 404) {
         const alertPassword = (
           <Alert variant="danger" className="py-1">
             Password not match!
