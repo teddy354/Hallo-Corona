@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	articledto "hallo-corona-be/dto/article"
 	dto "hallo-corona-be/dto/result"
 	"hallo-corona-be/models"
@@ -13,6 +14,11 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/gorilla/mux"
+
+	"context"
+
+	"github.com/cloudinary/cloudinary-go/v2"
+	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 )
 
 type handlerArticle struct {
@@ -94,9 +100,24 @@ func (h *handlerArticle) CreateArticle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var ctx = context.Background()
+	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	var API_KEY = os.Getenv("API_KEY")
+	var API_SECRET = os.Getenv("API_SECRET")
+
+	// Add your Cloudinary credentials ...
+	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+
+	// Upload file to Cloudinary ...
+	resp, err := cld.Upload.Upload(ctx, filename, uploader.UploadParams{Folder: "hallocorona"})
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	article := models.Article{
 		Title:    request.Title,
-		Image:    filename,
+		Image:    resp.SecureURL,
 		UserID:   userId,
 		User:     models.UserResponse{},
 		Desc:     request.Desc,
@@ -143,13 +164,28 @@ func (h *handlerArticle) UpdateArticle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var ctx = context.Background()
+	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	var API_KEY = os.Getenv("API_KEY")
+	var API_SECRET = os.Getenv("API_SECRET")
+
+	// Add your Cloudinary credentials ...
+	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+
+	// Upload file to Cloudinary ...
+	resp, err := cld.Upload.Upload(ctx, filename, uploader.UploadParams{Folder: "hallocorona"})
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	article, _ := h.ArticleRepository.GetArticle(id)
 
 	article.Title = request.Title
 	article.Desc = request.Desc
 
 	if filename != "false" {
-		article.Image = filename
+		article.Image = resp.SecureURL
 	}
 
 	article, err = h.ArticleRepository.UpdateArticle(article)
@@ -199,6 +235,6 @@ func convertResponseArticle(t models.Article) articledto.ArticleResponse {
 		Desc:      t.Desc,
 		CreatedAt: t.CreatedAt,
 		UpdatedAt: t.UpdatedAt,
-		Category: t.Category,
+		Category:  t.Category,
 	}
 }

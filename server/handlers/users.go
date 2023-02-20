@@ -9,6 +9,8 @@ import (
 	"hallo-corona-be/models"
 	"hallo-corona-be/repositories"
 	"net/http"
+	"os"
+
 	// "os"
 	"strconv"
 	// "time"
@@ -37,6 +39,11 @@ func (h *handlerUser) FindUsers(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(err.Error())
 	}
 
+	// Create Embed Path File on Image property here...
+	for i, p := range users {
+		users[i].Image = os.Getenv("PATH_FILE") + p.Image
+	}
+
 	w.WriteHeader(http.StatusOK)
 	response := dto.SuccessResult{Code: http.StatusOK, Data: users}
 	json.NewEncoder(w).Encode(response)
@@ -54,6 +61,9 @@ func (h *handlerUser) GetUser(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
+
+	// Create Embed Path File on Image property here ...
+	user.Image = os.Getenv("PATH_FILE") + user.Image
 
 	w.WriteHeader(http.StatusOK)
 	response := dto.SuccessResult{Code: http.StatusOK, Data: user}
@@ -80,21 +90,7 @@ func (h *handlerUser) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dataContex := r.Context().Value("dataFile")
-	filepath := dataContex.(string)
-
-	var ctx = context.Background()
-	var CLOUD_NAME = "dnp8wajpj"
-	var API_KEY = "827711914388479"
-	var API_SECRET = "urM6YCoJKCN1gwoIxb5KIlX5Zkg"
-
-	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
-	resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "hallocorona"})
-	fmt.Println(resp.SecureURL)
-
-	if err != nil {
-		fmt.Println("upload gagal", err.Error())
-	}
+	
 
 	user := models.User{
 		Fullname: request.Fullname,
@@ -127,6 +123,7 @@ func (h *handlerUser) UpdateUser(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
+	
 
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 	user, err := h.UserRepository.GetUser(int(id))
@@ -163,8 +160,6 @@ func (h *handlerUser) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	if request.Address != "" {
 		user.Address = request.Address
 	}
-
-	
 
 	data, err := h.UserRepository.UpdateUser(user)
 	if err != nil {
@@ -213,58 +208,57 @@ func convertResponse(u models.User) usersdto.UserResponse {
 	}
 }
 
-
 func (h *handlerUser) ChangeImage(w http.ResponseWriter, r *http.Request) {
- w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json")
 
- dataContex := r.Context().Value("dataFile")
- filename := dataContex.(string)
+	dataContex := r.Context().Value("dataFile")
+	filename := dataContex.(string)
 
- id, _ := strconv.Atoi(mux.Vars(r)["id"])
- user, err := h.UserRepository.GetUser(int(id))
- if err != nil {
-  w.WriteHeader(http.StatusBadRequest)
-  response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
-  json.NewEncoder(w).Encode(response)
-  return
- }
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	user, err := h.UserRepository.GetUser(int(id))
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 
-//  request := usersdto.ChangeImageRequest{
-//   Image: filename,
-//  }
+	//  request := usersdto.ChangeImageRequest{
+	//   Image: filename,
+	//  }
 
-//  userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
-//  userId := int(userInfo["id"].(float64))
+	//  userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
+	//  userId := int(userInfo["id"].(float64))
 
-//  var ctx = context.Background()
-//  var CLOUD_NAME = os.Getenv("CLOUD_NAME")
-//  var API_KEY = os.Getenv("API_KEY")
-//  var API_SECRET = os.Getenv("API_SECRET")
+	 var ctx = context.Background()
+	 var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	 var API_KEY = os.Getenv("API_KEY")
+	 var API_SECRET = os.Getenv("API_SECRET")
 
- // Add your Cloudinary credentials ...
-//  cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+	// Add your Cloudinary credentials ...
+	 cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
- // Upload file to Cloudinary ...
-//  resp, err := cld.Upload.Upload(ctx, filepath, uploader.UploadParams{Folder: "uploads"})
+	// Upload file to Cloudinary ...
+	 resp, err := cld.Upload.Upload(ctx, filename, uploader.UploadParams{Folder: "hallocorona"})
 
-//  if err != nil {
-//   fmt.Println(err.Error())
-//  }
+	 if err != nil {
+	  fmt.Println(err.Error())
+	 }
 
- if filename != "false" {
-  user.Image = filename
- }
+	if filename != "false" {
+		user.Image = resp.SecureURL
+	}
 
- data, err := h.UserRepository.ChangeImage(user)
- if err != nil {
-  w.WriteHeader(http.StatusInternalServerError)
-  response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
-  json.NewEncoder(w).Encode(response)
-  return
- }
+	data, err := h.UserRepository.ChangeImage(user)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
 
- w.WriteHeader(http.StatusOK)
- response := dto.SuccessResult{Code: http.StatusOK, Data: data}
- json.NewEncoder(w).Encode(response)
+	w.WriteHeader(http.StatusOK)
+	response := dto.SuccessResult{Code: http.StatusOK, Data: data}
+	json.NewEncoder(w).Encode(response)
 
 }
