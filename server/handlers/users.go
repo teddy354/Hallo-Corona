@@ -239,7 +239,7 @@ func (h *handlerUser) ChangeImage(w http.ResponseWriter, r *http.Request) {
 	 cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
 
 	// Upload file to Cloudinary ...
-	 resp, err := cld.Upload.Upload(ctx, filename, uploader.UploadParams{Folder: "hallocorona"})
+	 resp, err := cld.Upload.Upload(ctx, filename, uploader.UploadParams{Folder: "uploads"})
 
 	 if err != nil {
 	  fmt.Println(err.Error())
